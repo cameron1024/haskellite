@@ -1,3 +1,5 @@
+![Dart CI](https://github.com/cameron1024/haskellite/workflows/Dart%20CI/badge.svg)
+
 # haskellite
 
 Haskell-like functionality for Dart
