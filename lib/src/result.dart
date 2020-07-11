@@ -33,7 +33,7 @@ class Result<T> {
   T get value => _value.right;
 
   /// Returns the current error, if present, or null otherwise.
-  dynamic get error => _value.left;
+  dynamic get error => null;
 
   /// Calls a function if a value is present, returning `this`
   ///
