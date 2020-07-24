@@ -27,7 +27,7 @@ C Function(A, B) uncurry<A, B, C>(C Function(B) Function(A) function) {
   return (A a, B b) => function(a)(b);
 }
 
-/// Swaps the order of arguments of a binary function.
+/// Swaps the order of arguments of an uncurried function.
 ///
 /// For example:
 /// ```dart
@@ -56,7 +56,7 @@ C Function(A) Function(B) swap<A, B, C>(C Function(B) Function(A) function) => (
 /// ```dart
 /// [1, 2, 3].map(add(1))  // returns [2, 3, 4]
 /// ```
-num Function(num) Function(num) add = curry((a, b) => a + b);
+num Function(num) add(num a) => (b) => a + b;
 
 /// Curried function to subtract numbers
 ///
@@ -64,7 +64,7 @@ num Function(num) Function(num) add = curry((a, b) => a + b);
 /// ```dart
 /// [1, 2, 3].map(subtract(1))  // returns [0, 1, 2]
 /// ```
-num Function(num) Function(num) subtract = curry((a, b) => b - a);
+num Function(num) subtract(num a) => (b) => b - a;
 
 /// Curried function to multiply numbers
 ///
@@ -72,7 +72,7 @@ num Function(num) Function(num) subtract = curry((a, b) => b - a);
 /// ```dart
 /// [1, 2, 3].map(multiply(2))  // returns [2, 4, 6]
 /// ```
-num Function(num) Function(num) multiply = curry((a, b) => a * b);
+num Function(num) multiply(num a) => (b) => a * b;
 
 /// Curried function to divide numbers
 ///
@@ -80,7 +80,7 @@ num Function(num) Function(num) multiply = curry((a, b) => a * b);
 /// ```dart
 /// [2, 4, 6].map(divide(2))  // returns [1, 2, 3]
 /// ```
-num Function(num) Function(num) divide = curry((a, b) => b / a);
+num Function(num) divide(num a) => (b) => b / a;
 
 /// Curried function to mod numbers
 ///
@@ -88,7 +88,7 @@ num Function(num) Function(num) divide = curry((a, b) => b / a);
 /// ```dart
 /// [3, 4, 5].map(mod(3))  // returns [0, 1, 2]
 /// ```
-num Function(num) Function(num) mod = curry((a, b) => b % a);
+num Function(num) mod(num a) => (b) => b % a;
 
 /// Curried function to concatenate strings
 ///
@@ -96,4 +96,4 @@ num Function(num) Function(num) mod = curry((a, b) => b % a);
 /// ```dart
 /// [3, 4, 5].map(mod(3))  // returns [0, 1, 2]
 /// ```
-String Function(String) Function(String) concat = curry((String a, String b) => '$a$b');
+String Function(String) concat(String a) => (b) => '$b$a';

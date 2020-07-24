@@ -31,5 +31,7 @@ void main() {
 
     expect(mod(2)(4), equals(0));
     expect([3, 4, 5].map(mod(3)), orderedEquals([0, 1, 2]));
+
+    expect(concat(' world')('hello'), equals('hello world'));
   });
 }
