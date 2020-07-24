@@ -1,8 +1,12 @@
 name: haskellite
-description: Haskell-like functionality for Dart
+description: Haskell-inspired functionality for Dart
 version: 0.0.1
+repository: https://github.com/cameron1024/haskellite
 environment:
   sdk: ">=2.7.0 <3.0.0"
 dev_dependencies:
-  test:
-  pedantic:
+  test: 1.15.3
+  pedantic: 1.9.2
+  test_coverage: 0.4.3
+  dartdoc: 0.32.1
+

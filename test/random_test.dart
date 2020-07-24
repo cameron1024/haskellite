@@ -1,4 +1,5 @@
 
+import 'package:haskellite/haskellite.dart';
 import 'package:haskellite/src/random_variable.dart';
 import 'package:test/test.dart';
 
@@ -120,6 +121,21 @@ void main() {
       'fail': -4
     };
     expect(() => WeightedVariable(almostValidWeights), _failsAssert);
+  });
+
+  test('non repeating variable should obey repeating rules', () {
+    final constant = randomNonRepeating(0, randomWrappedFactory(() => 0));
+    for (var i = 0; i < 10; i++) {
+      expect(constant.next, isZero);
+    }
+
+    final alternating = randomNonRepeating(1, randomBool());
+    final initial = alternating.next;
+    expect(alternating.next, isNot(equals(initial)));
+    expect(alternating.next, equals(initial));
+    expect(alternating.next, isNot(equals(initial)));
+    expect(alternating.next, equals(initial));
+
   });
 
 
