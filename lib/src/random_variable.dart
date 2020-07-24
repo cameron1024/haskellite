@@ -28,8 +28,7 @@ abstract class RandomVariable<T> {
 /// final dice = randomInt(max: 6, offset: 1);
 /// dice.next  // returns a random int between 1 and 6 inclusive
 /// ```
-RandomVariable<int> randomInt({int seed, bool secure = false, int max = 256, int offset = 0}) =>
-    _BaseRandomInt(secure: secure, seed: seed, max: max, offset: offset);
+RandomVariable<int> randomInt({int seed, bool secure = false, int max = 256, int offset = 0}) => _BaseRandomInt(secure: secure, seed: seed, max: max, offset: offset);
 
 /// Produces a [RandomVariable] that produces doubles from [Random.nextDouble].
 ///
@@ -65,8 +64,7 @@ RandomVariable<bool> randomBool({int seed, bool secure = false}) => _BaseRandomB
 /// final variable = randomMapped(randomBool, (b) => b ? "hello" : "goodbye");
 /// variable.next  // returns a random string that is either "hello" or "goodbye"
 /// ```
-RandomVariable<R> randomMapped<T, R>(RandomVariable<T> base, R Function(T) mapper) =>
-    _MappedRandomVariable(mapper, base);
+RandomVariable<R> randomMapped<T, R>(RandomVariable<T> base, R Function(T) mapper) => _MappedRandomVariable(mapper, base);
 
 /// Produces a [RandomVariable] that takes a list and returns a shallow copie with the elements in a randomized order.
 ///
@@ -138,6 +136,27 @@ RandomVariable<T> randomWrappedFactory<T>(T Function() factory) => _CustomRandom
 RandomVariable<T> randomMarkov<T>(T Function(T) function, {T initialValue}) {
   assert(function != null);
   return _MarkovVariable(function, previous: initialValue);
+}
+
+
+/// Wraps a [RandomVariable] with one that will not emit the same value within a given interval.
+///
+/// Any repeated values returned by [baseVariable] will be discarded, and as such you will not necessarily receive values in the same order.
+/// Note that it is possible to get into a state where there are no valid values to emit, in which case the call will loop indefinitely.
+///
+/// For example:
+/// ```dart
+/// final variable = randomNonRepeating(10, randomInt());
+/// final value = variable.next;  // the following 10 calls to next will not return value
+///
+/// randomNonRepeating(0, randomInt())  // passing 0 as a length leaves the base variable unmodified
+/// ```
+RandomVariable<T> randomNonRepeating<T>(int nonRepeatingLength, RandomVariable<T> baseVariable) {
+  assert(nonRepeatingLength != null);
+  assert(nonRepeatingLength >= 0);
+  assert(baseVariable != null);
+  if (nonRepeatingLength == 0) return baseVariable;
+  return _NonRepeatingVariable(baseVariable, nonRepeatingLength);
 }
 
 class _CustomRandom<T> implements RandomVariable<T> {
@@ -323,7 +342,6 @@ class _RandomListItem<T> extends RandomVariable<T> {
 /// variable.next  // 1/3 chance to return "hello", 2/3 chance to return "world"
 /// ```
 class WeightedVariable<T> extends RandomVariable<T> {
-
   /// The weights that describe the distribution that this variable follows
   final Map<T, num> weights;
   final num _totalWeight;
@@ -356,8 +374,7 @@ class WeightedVariable<T> extends RandomVariable<T> {
       lastValue = key;
     }
 
-
-    return lastValue  ;
+    return lastValue;
   }
 
   bool _between(num x, num y, num test) {
@@ -365,4 +382,27 @@ class WeightedVariable<T> extends RandomVariable<T> {
     if (test >= y) return false;
     return true;
   }
+}
+
+class _NonRepeatingVariable<T> extends RandomVariable<T> {
+  final RandomVariable<T> _base;
+  final int _nonRepeatLength;
+
+  final List<T> _values = [];
+
+  _NonRepeatingVariable(this._base, this._nonRepeatLength);
+
+  @override
+  T get next {
+    while (true) {
+      final value = _base.next;
+      if (!_values.contains(value)) {
+        _values.insert(0, value);
+        _trimQueue();
+        return value;
+      }
+    }
+  }
+
+  void _trimQueue() => _values.length = min(_values.length, _nonRepeatLength);
 }

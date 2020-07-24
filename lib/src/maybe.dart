@@ -3,7 +3,12 @@ import 'exceptions.dart';
 /// Represents either an instance of type [T] or an empty value.
 ///
 /// Methods are provided to operate on these values without the need to explicitly check for each case.
-/// This is analogous to the Maybe type in Haskell
+/// This is analogous to the Maybe type in Haskell.
+/// Other languages have a similar type called `Option` (such as in Rust) or `Optional` (such as in Java 8)
+///
+/// For example:
+/// ```dart
+/// ```
 class Maybe<T> {
   /// The value contained by this [Maybe]. Note that [value] being `null` does not imply that the instance is empty. This library makes a distinction between a 'null' value and an empty instance.
   final T value;
@@ -76,6 +81,23 @@ class Maybe<T> {
       assert(function != null);
       function(value);
     }
+  }
+
+  /// Attempts to apply [function] to the contained value.
+  ///
+  /// This is analogous to the bind function on a monad in Haskell, denoted by `>>=`.
+  /// It behaves similarly to [Maybe.map], but takes a [Maybe]-producing function instead of a plain function.
+  ///
+  /// For example:
+  /// ```dart
+  /// final mapper = (String s) => Maybe.just('Hello, $s');
+  ///
+  /// Maybe.just('world').bind(mapper)  // returns Maybe.just('Hello, world')
+  /// Maybe.nothing().bind(mapper)  // returns Maybe.nothing()
+  /// ```
+  Maybe<R> bind<R>(Maybe<R> Function(T) function) {
+    if (!hasValue) return const Maybe.nothing();
+    return function(value);
   }
 
   @override
