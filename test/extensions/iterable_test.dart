@@ -57,4 +57,9 @@ void main() {
     expect(<num>[1, 2, 3].scan1(uncurry(add)), orderedEquals([1, 3, 6]));
     expect(<num>[].scan1(uncurry(add)), orderedEquals([]));
   });
+
+  test('cycle should behave as expected', () {
+    expect([1].cycle.take(4), orderedEquals([1, 1, 1, 1]));
+    expect([1, 2].cycle.take(4), orderedEquals([1, 2, 1, 2]));
+  });
 }

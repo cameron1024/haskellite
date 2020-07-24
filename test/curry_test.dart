@@ -34,4 +34,14 @@ void main() {
 
     expect(concat(' world')('hello'), equals('hello world'));
   });
+
+  test('swap should behave as expected', () {
+    expect(subtract(1)(2), equals(1));
+    expect(swap(subtract)(1)(2), equals(-1));
+  });
+
+  test('swapU should behave as expected', () {
+    expect(uncurry(subtract)(2, 1), equals(-1));
+    expect(swapU(uncurry(subtract))(2, 1), equals(1));
+  });
 }
