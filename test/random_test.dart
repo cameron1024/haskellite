@@ -18,13 +18,29 @@ void main() {
   });
   
   test('random values with a given seed should provide the same values', () {
-    final random1 = randomInt(seed: _seed);
-    final random2 = randomInt(seed: _seed);
+    final randomInt1 = randomInt(seed: _seed);
+    final randomInt2 = randomInt(seed: _seed);
 
-    final values1 = Iterable.generate(_iterationCount, (_) => random1.next);
-    final values2 = Iterable.generate(_iterationCount, (_) => random2.next);
+    final ints1 = Iterable.generate(_iterationCount, (_) => randomInt1.next);
+    final ints2 = Iterable.generate(_iterationCount, (_) => randomInt2.next);
 
-    expect(values1, orderedEquals(values2));
+    expect(ints1, orderedEquals(ints2));
+
+    final randomDouble1 = randomDouble(seed: _seed);
+    final randomDouble2 = randomDouble(seed: _seed);
+
+    final doubles1 = Iterable.generate(_iterationCount, (_) => randomDouble1.next);
+    final doubles2 = Iterable.generate(_iterationCount, (_) => randomDouble2.next);
+
+    expect(doubles1, orderedEquals(doubles2));
+
+    final randomBool1 = randomBool(seed: _seed);
+    final randomBool2 = randomBool(seed: _seed);
+
+    final bools1 = Iterable.generate(_iterationCount, (_) => randomBool1.next);
+    final bools2 = Iterable.generate(_iterationCount, (_) => randomBool2.next);
+
+    expect(bools1, equals(bools2));
   });
 
   test('random ints with an offset should produce expected values', () {
@@ -136,6 +152,33 @@ void main() {
     expect(alternating.next, isNot(equals(initial)));
     expect(alternating.next, equals(initial));
 
+  });
+
+  test('mapped random variable should properly map values', () {
+    final constant = randomWrappedFactory(() => 1);
+    final mapped = randomMapped(constant, add(1));
+
+    for (var i = 0; i < _iterationCount; i++) {
+      expect(mapped.next, equals(2));
+    }
+  });
+
+  test('markov variable should correctly compute next values', () {
+    final nullErrorVariable = randomMarkov((i) => i + 1);
+    expect(() => nullErrorVariable.next, throwsA(isA<NoSuchMethodError>()));
+
+    final initialisedVariable = randomMarkov(add(1), initialValue: 0);
+    for (var i = 0; i < _iterationCount; i++) {
+      expect(initialisedVariable.next, equals(i + 1));
+    }
+
+    final nullAcceptingVariable = randomMarkov((i) {
+      if (i == null) return 0;
+      return i + 1;
+    });
+    for (var i = 0; i < _iterationCount; i++) {
+      expect(nullAcceptingVariable.next, equals(i));
+    }
   });
 
 
