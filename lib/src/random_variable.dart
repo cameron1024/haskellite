@@ -138,7 +138,6 @@ RandomVariable<T> randomMarkov<T>(T Function(T) function, {T initialValue}) {
   return _MarkovVariable(function, previous: initialValue);
 }
 
-
 /// Wraps a [RandomVariable] with one that will not emit the same value within a given interval.
 ///
 /// Any repeated values returned by [baseVariable] will be discarded, and as such you will not necessarily receive values in the same order.
@@ -173,7 +172,7 @@ class _BaseRandomInt implements RandomVariable<int> {
   final int _max;
   final int _offset;
 
-  _BaseRandomInt({int seed, bool secure = false, int max, int offset})
+  _BaseRandomInt({int seed, bool secure = false, int max, int offset = 0})
       : _random = secure ? Random.secure() : Random(seed),
         _offset = offset,
         _max = max,

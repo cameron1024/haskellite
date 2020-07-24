@@ -1,4 +1,3 @@
-
 /// Converts a binary function into a unary function that returns a unary function.
 ///
 /// Enables the use of partial application of functions.

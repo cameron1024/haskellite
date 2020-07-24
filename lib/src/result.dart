@@ -25,7 +25,6 @@ import 'either.dart';
 /// login().onValue(handleUser).onError(handleError);
 /// ```
 class Result<T> {
-
   /// Follows the Haskell convention of denoting the success state with the right, since "right" == "correct"
   final Either<dynamic, T> _value;
 
@@ -71,8 +70,6 @@ class Result<T> {
     return this;
   }
 
-
-
   /// Returns the contained value if one exists, or throws an error otherwise.
   ///
   /// If one is present, it is returned. If there is no value (i.e. the [Result] is in an error state), the contained error is thrown, unless a non-null [errorBuilder] is provided, in which case, [errorBuilder] is called and the result is thrown. If both [error] and [errorBuilder] are null, an [AssertionError] is thrown.
@@ -100,7 +97,7 @@ class Result<T> {
   /// Result<int>.error(Exception()).getOrDefault(valueBuilder: () => 5)  // returns 5
   T getOrDefault({T Function() valueBuilder}) {
     if (hasValue) return value;
-    assert (valueBuilder != null);
+    assert(valueBuilder != null);
     return valueBuilder();
   }
 
@@ -143,9 +140,7 @@ class Result<T> {
   static Future<Result<T>> fromFuture<T>(Future<T> future) async {
     assert(future != null);
     Result<T> result;
-    await future
-        .then((value) => result = Result.success(value))
-        .catchError((error) => result = Result.error(error));
+    await future.then((value) => result = Result.success(value)).catchError((error) => result = Result.error(error));
 
     return result;
   }
@@ -200,11 +195,8 @@ class Result<T> {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is Result && runtimeType == other.runtimeType && _value == other._value;
+  bool operator ==(Object other) => identical(this, other) || other is Result && runtimeType == other.runtimeType && _value == other._value;
 
   @override
   int get hashCode => _value.hashCode;
-
 }
-

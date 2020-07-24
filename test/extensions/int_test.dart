@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 Matcher get _failsAssert => throwsA(isA<AssertionError>());
 
-void main () {
+void main() {
   test('int.to should create lists with expected values', () {
     expect(1.to(5), orderedEquals([1, 2, 3, 4, 5]));
     expect(5.to(1), orderedEquals([5, 4, 3, 2, 1]));
@@ -11,7 +11,6 @@ void main () {
 
     expect(1.to(5, step: 3), orderedEquals([1, 4, 7]));
     expect(1.to(5, step: -3), orderedEquals([1, 4, 7]));
-
   });
 
   test('int.to should throw exception when called with invalid arguments', () {
@@ -27,5 +26,4 @@ void main () {
   test('int.toInfinity should throw an exception when called with invalid arguments', () {
     expect(() => 1.toInfinity(step: null), _failsAssert);
   });
-
 }

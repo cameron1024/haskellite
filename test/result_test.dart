@@ -1,7 +1,5 @@
-
 import 'package:haskellite/haskellite.dart';
 import 'package:test/test.dart';
-
 
 const _string = 'Hello';
 final _stringMapper = (String s) => s + ' world';
@@ -15,13 +13,13 @@ void main() {
     expect(_success.hasError, isFalse);
     expect(_success.value, equals(_string));
     expect(_success.error, isNull);
-    
+
     expect(_error.hasValue, isFalse);
     expect(_error.hasError, isTrue);
     expect(_error.value, isNull);
     expect(_error.error, isA<Exception>());
   });
-  
+
   test('result from future should correctly handle success and error states', () async {
     final fromValue = await Result.fromFuture(Future.value(_string));
     expect(fromValue.hasValue, isTrue);
@@ -32,7 +30,7 @@ void main() {
     expect(fromError.value, null);
     expect(fromError.error, isA<Exception>());
   });
-  
+
   test('map should correctly map values', () {
     expect(_success.map(_stringMapper), equals(Result.success(_mappedString)));
     expect(_error.map(_stringMapper), equals(_error));
@@ -82,8 +80,5 @@ void main() {
 
     expect(result.onError((_) => null), same(result));
     expect(result.onValue((_) => null), same(result));
-
   });
-  
-  
 }

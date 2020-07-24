@@ -6,9 +6,10 @@ Matcher get _failsAssert => throwsA(isA<AssertionError>());
 const _value = 'Hello';
 final _stringMapper = (String s) => s + ' world';
 final _mappedValue = _stringMapper(_value);
-Maybe<String> get _maybeWithValue => Maybe.just(_value);
-Maybe<String> get _emptyMaybe => const Maybe.nothing();
 
+Maybe<String> get _maybeWithValue => Maybe.just(_value);
+
+Maybe<String> get _emptyMaybe => const Maybe.nothing();
 
 void main() {
   test('maybe constructors should return expected values', () {
@@ -101,5 +102,4 @@ void main() {
     expect(_maybeWithValue.bind(mapper), equals(Maybe.just('Hello world')));
     expect(_emptyMaybe.bind(mapper), equals(_emptyMaybe));
   });
-
 }

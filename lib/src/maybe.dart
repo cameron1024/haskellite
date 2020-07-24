@@ -123,7 +123,7 @@ class Maybe<T> {
   }
 }
 
-/// Takes an [Iterable] of [Maybe]s, and returns all the values for which [hasValue] is 'true'
+/// Takes an [Iterable] of [Maybe]s, and returns all the values for which [Maybe.hasValue] is 'true'
 ///
 /// Analogous to the 'catMaybes' function from Haskell
 /// For example:
@@ -133,9 +133,8 @@ class Maybe<T> {
 /// ```
 Iterable<T> catMaybes<T>(Iterable<Maybe<T>> maybes) sync* {
   final iterator = maybes.iterator;
-  while(iterator.moveNext()) {
+  while (iterator.moveNext()) {
     final maybe = iterator.current;
     if (maybe.hasValue) yield maybe.value;
   }
 }
-

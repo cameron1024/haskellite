@@ -1,11 +1,9 @@
-
 import 'maybe.dart';
 
 /// An [Either<L, R>] represents a value whose type is either [L] or [R].
 ///
 /// This is analogous to the Either type in Haskell, or [union types](https://en.wikipedia.org/wiki/Union_type) more generally
 class Either<L, R> {
-
   /// The left value of this instance
   ///
   /// For example:
@@ -92,7 +90,6 @@ class Either<L, R> {
   /// ```
   Maybe<R> get rightAsMaybe => isRight ? Maybe.just(right) : const Maybe.nothing();
 
-
   /// Returns the [left] value if one exists, or calls [defaultBuilder] otherwise.
   ///
   /// If [isLeft] is `false`, [defaultBuilder] must be non-null
@@ -139,17 +136,12 @@ class Either<L, R> {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Either &&
-          runtimeType == other.runtimeType &&
-          left == other.left &&
-          right == other.right &&
-          isLeft == other.isLeft;
+  bool operator ==(Object other) => identical(this, other) || other is Either && runtimeType == other.runtimeType && left == other.left && right == other.right && isLeft == other.isLeft;
 
   @override
   int get hashCode => left.hashCode ^ right.hashCode ^ isLeft.hashCode;
 }
+
 /// Takes an [Iterable] of [Either]s, and returns an [Iterable] containing only the elements created with [Either.left]
 ///
 /// For example:
@@ -163,8 +155,6 @@ Iterable<A> lefts<A, B>(Iterable<Either<A, B>> eithers) sync* {
     final either = iterator.current;
     if (either.isLeft) yield either.left;
   }
-
-
 }
 
 /// Takes an [Iterable] of [Either]s, and returns an [Iterable] containing only the elements created with [Either.right]
@@ -176,9 +166,8 @@ Iterable<A> lefts<A, B>(Iterable<Either<A, B>> eithers) sync* {
 /// ```
 Iterable<B> rights<A, B>(Iterable<Either<A, B>> eithers) sync* {
   final iterator = eithers.iterator;
-  while(iterator.moveNext()) {
+  while (iterator.moveNext()) {
     final either = iterator.current;
     if (either.isRight) yield either.right;
   }
 }
-

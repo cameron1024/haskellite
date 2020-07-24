@@ -1,5 +1,4 @@
 extension IntExtension on int {
-
   /// Creates a list containing all from [this] to [end], in intervals of [step].
   ///
   /// Inspired by Haskell's `[1..n]` syntax. Providing a negative [step] is allowed, and behaves as if the same positive [step] was provided. [step] must be non null and must not be 0.
@@ -52,6 +51,4 @@ extension IntExtension on int {
       i += step;
     }
   }
-
-
 }
