@@ -1,5 +1,5 @@
 name: haskellite
-description: Haskell-inspired functionality for Dart
+description: Haskell-inspired functionality for Dart. Provides useful types and syntaxes for more concise, functional-style programming.
 version: 0.0.1
 repository: https://github.com/cameron1024/haskellite
 environment:

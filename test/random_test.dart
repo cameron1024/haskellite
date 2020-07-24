@@ -1,4 +1,3 @@
-
 import 'package:haskellite/haskellite.dart';
 import 'package:test/test.dart';
 
@@ -15,7 +14,7 @@ void main() {
     expect(() => randomizedList([1], secure: true, seed: _seed), _failsAssert);
     expect(() => randomListItem([1], secure: true, seed: _seed), _failsAssert);
   });
-  
+
   test('random values with a given seed should provide the same values', () {
     final randomInt1 = randomInt(seed: _seed);
     final randomInt2 = randomInt(seed: _seed);
@@ -115,7 +114,6 @@ void main() {
     shuffled.add(6);
     expect(list, isNot(unorderedEquals(shuffled)));
     expect(list, isNot(same(shuffled)));
-
   });
 
   test('weighted variable should produce expected values', () {
@@ -128,13 +126,7 @@ void main() {
     expect(() => WeightedVariable({'hello': -1}), _failsAssert);
     expect(() => WeightedVariable({'hello': 0}), _failsAssert);
 
-    final almostValidWeights = {
-      'hello': 1,
-      'world': 2.2,
-      '!': 3,
-      'never exists': 0,
-      'fail': -4
-    };
+    final almostValidWeights = {'hello': 1, 'world': 2.2, '!': 3, 'never exists': 0, 'fail': -4};
     expect(() => WeightedVariable(almostValidWeights), _failsAssert);
   });
 
@@ -150,7 +142,6 @@ void main() {
     expect(alternating.next, equals(initial));
     expect(alternating.next, isNot(equals(initial)));
     expect(alternating.next, equals(initial));
-
   });
 
   test('mapped random variable should properly map values', () {
@@ -179,6 +170,4 @@ void main() {
       expect(nullAcceptingVariable.next, equals(i));
     }
   });
-
-
 }
