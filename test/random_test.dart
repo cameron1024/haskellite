@@ -1,6 +1,5 @@
 
 import 'package:haskellite/haskellite.dart';
-import 'package:haskellite/src/random_variable.dart';
 import 'package:test/test.dart';
 
 Matcher get _failsAssert => throwsA(isA<AssertionError>());

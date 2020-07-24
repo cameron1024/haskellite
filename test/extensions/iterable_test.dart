@@ -1,6 +1,5 @@
 
 import 'package:haskellite/haskellite.dart';
-import 'package:haskellite/src/extensions/iterable.dart';
 import 'package:test/test.dart';
 
 void main() {
