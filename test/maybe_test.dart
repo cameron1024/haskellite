@@ -1,5 +1,4 @@
-import 'package:haskellite/src/exceptions.dart';
-import 'package:haskellite/src/maybe.dart';
+import 'package:haskellite/haskellite.dart';
 import 'package:test/test.dart';
 
 Matcher get _failsAssert => throwsA(isA<AssertionError>());

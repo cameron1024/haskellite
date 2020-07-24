@@ -1,6 +1,5 @@
 
-import 'package:haskellite/src/either.dart';
-import 'package:haskellite/src/maybe.dart';
+import 'package:haskellite/haskellite.dart';
 import 'package:test/test.dart';
 
 final _failsAssert = throwsA(isA<AssertionError>());
