@@ -31,7 +31,7 @@ Haskell-like functionality for Dart
     - `1.to(5)` - a replacement for Haskell's `[1..5]`
     - `1.toInfinity()` - a replacement for Haskell's `[1..]`
  
-## And More
+### And More
 
  - `curry` and `uncurry` - easy partial function application in Dart 
  - `repeat` and `Iterable.cycle` - create a list of repeating values
