@@ -1,5 +1,5 @@
 ![Dart CI](https://github.com/cameron1024/haskellite/workflows/Dart%20CI/badge.svg)
-![Coverage](https://raw.githubusercontent.com/cameron1024/haskellite/master/coverage_badge.svg?sanitize=true)
+![Coverage](https://raw.githubusercontent.com/cameron1024/haskellite/master/coverage_badge.svg)
 
 # haskellite
 
